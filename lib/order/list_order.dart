@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import '../models/product_model.dart';
-import '../providers/order_provider.dart';
-
+import 'package:shopping/models/product_model.dart';
+import 'package:shopping/providers/order_provider.dart';
+import 'package:shopping/providers/product_provider.dart';
 
 class ListOrder extends StatefulWidget {
   static const routerName = '/listOder';
