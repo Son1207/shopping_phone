@@ -26,7 +26,16 @@ class _HomeSliderState extends State<HomeSlider> {
         future: sliderFuture,
         initialData: [],
         builder: (context,asyncData){
-          final sliderData = asyncData.data! as List;
+          var sliderData=[];
+          if(asyncData.hasData){
+            sliderData = asyncData.data! as List;
+          }
+          else {
+            return Container(
+              child: Text('No data'),
+            );
+          }
+
           return asyncData.hasData ? CarouselSlider(
             options: CarouselOptions(autoPlay: true),
             items: sliderData.map((i) { 
