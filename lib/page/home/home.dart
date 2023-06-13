@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_food/page/home/widget/home_category.dart';
 import 'package:shopping_food/page/home/widget/home_slider.dart';
+import 'package:shopping_food/page/home/widget/list_product_special.dart';
 
 import '../../const.dart';
 import '../../providers/auth_provider.dart';
@@ -140,7 +141,26 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
+          const SizedBox(
+            height: 30,
+          ),
+          const HomeCategory(),
+          const SizedBox(height: 30),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  'Sản phẩm đặc biệt',
+                  style: fdCategory,
+                ),
+                Text('Tất cả (4)'),
+              ],
+            ),
+          ),
           const SizedBox(height: 20),
+          const ListProductSpecial(),
         ],
       ),
     );
