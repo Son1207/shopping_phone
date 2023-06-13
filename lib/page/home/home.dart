@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_food/page/home/widget/home_category.dart';
 import 'package:shopping_food/page/home/widget/home_slider.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,6 +15,9 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: const[
           HomeSlider(),
+          SizedBox(height: 20,),
+          HomeCategory(),
+
         ],
       ),
     );
