@@ -25,7 +25,7 @@ class CartProvider extends ChangeNotifier {
       // ton tai san pham
       items.update(
         productId,
-            (value) => CartItem(
+        (value) => CartItem(
           id: value.id,
           image: value.image,
           name: value.name,
@@ -36,14 +36,15 @@ class CartProvider extends ChangeNotifier {
     } else {
       // chua ton tai
       items.putIfAbsent(
-          productId,
-              () => CartItem(
-            id: productId,
-            image: image,
-            name: name,
-            price: price,
-            quantity: quantity,
-          ));
+        productId,
+        () => CartItem(
+          id: productId,
+          image: image,
+          name: name,
+          price: price,
+          quantity: quantity,
+        ),
+      );
     }
     notifyListeners();
   }
@@ -51,7 +52,7 @@ class CartProvider extends ChangeNotifier {
   void increase(int productId, [int quantity = 1]) {
     items.update(
       productId,
-          (value) => CartItem(
+      (value) => CartItem(
         id: value.id,
         image: value.image,
         name: value.name,
@@ -68,7 +69,7 @@ class CartProvider extends ChangeNotifier {
     } else {
       items.update(
         productId,
-            (value) => CartItem(
+        (value) => CartItem(
           id: value.id,
           image: value.image,
           name: value.name,
@@ -77,7 +78,6 @@ class CartProvider extends ChangeNotifier {
         ),
       );
     }
-
     notifyListeners();
   }
 

@@ -18,42 +18,43 @@ class _HomeSliderState extends State<HomeSlider> {
     sliderFuture = Provider.of<SliderProvider>(context).getSlider();
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20  ),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: FutureBuilder(
         future: sliderFuture,
         initialData: [],
-        builder: (context,asyncData){
-          var sliderData=[];
-          if(asyncData.hasData){
+        builder: (context, asyncData) {
+          var sliderData = [];
+          if (asyncData.hasData) {
             sliderData = asyncData.data! as List;
-          }
-          else {
-            return Container(
-              child: Text('No data'),
-            );
+          } else {
+            return const Text('No data');
           }
 
-          return asyncData.hasData ? CarouselSlider(
-            options: CarouselOptions(autoPlay: true),
-            items: sliderData.map((i) { 
-              return Builder(
-                builder: (BuildContext context) {
-                  return Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                              image: NetworkImage(i.image))
-                      ),
-                  );
-                },
-              );
-            }).toList(),
-          ): Container(child: const Text('No Data'),);
+          return asyncData.hasData
+              ? CarouselSlider(
+                  options: CarouselOptions(autoPlay: true),
+                  items: sliderData.map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(i.image),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
+                )
+              : const Text('No Data');
         },
       ),
     );

@@ -35,44 +35,46 @@ class _ListOrderState extends State<ListOrder> {
           var data = snapshot.data as List;
           return snapshot.hasData
               ? ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              var dataItem = data[index]['order_items'] as List;
-              return ExpansionTile(
-                  title: Text('Mã đơn hàng : ${data[index]['code']}'),
-                  subtitle: Text(DateFormat('kk:mm - dd-MM-yyyy ')
-                      .format(DateTime.parse(data[index]['created_at']))),
-                  children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: dataItem.length,
-                      itemBuilder: ((context, index) {
-                        return FutureBuilder(
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const CircularProgressIndicator();
-                            }
-                            var item = snapshot.data as Product;
-                            return ListTile(
-                              leading: Image.network(item.image),
-                              title: Text(item.name),
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    var dataItem = data[index]['order_items'] as List;
+                    return ExpansionTile(
+                      title: Text('Mã đơn hàng : ${data[index]['code']}'),
+                      subtitle: Text(DateFormat('kk:mm - dd-MM-yyyy ')
+                          .format(DateTime.parse(data[index]['created_at']))),
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: dataItem.length,
+                          itemBuilder: ((context, index) {
+                            return FutureBuilder(
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const CircularProgressIndicator();
+                                }
+                                var item = snapshot.data as Product;
+                                return ListTile(
+                                  leading: Image.network(item.image),
+                                  title: Text(item.name),
+                                );
+                              },
+                              future: Provider.of<ProductProvider>(context,
+                                      listen: false)
+                                  .getProductById(
+                                      dataItem[index]['product_id']
+                              ),
                             );
-                          },
-                          future: Provider.of<ProductProvider>(context,
-                              listen: false)
-                              .getProductById(
-                              dataItem[index]['product_id']),
-                        );
-                      }),
-                    ),
-                  ]);
-            },
-          )
+                          }),
+                        ),
+                      ],
+                    );
+                  },
+                )
               : Container(
-            child: SvgPicture.asset('assets/images/svg/no-data.svg'),
-          );
+                  child: SvgPicture.asset('assets/images/svg/no-data.svg'),
+                );
         },
       ),
     );
